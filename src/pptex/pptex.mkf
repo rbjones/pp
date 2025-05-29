@@ -201,11 +201,11 @@ findfile: findfile.o utf8module.o utf8module.h
 sieve: sieve.o utf8module.o utf8module.h
 	$(CC) -o sieve -DVERSION="\"$(PPVER)\"" $(CFLAGS) utf8module.o sieve.o
 
-pp_file_conv: pp_file_conv.o utf8module.o utf8module.h
+pp_file_conv: pp_file_conv.o utf8module.o utf8module.h utf8skw
 	$(CC) -o pp_file_conv -DVERSION="\"$(PPVER)\"" $(CFLAGS) utf8module.o pp_file_conv.o
 
-sievekeyword: utf8pptex.skw
-	cat utf8pptex.skw > $@
+sievekeyword: pptex.skw
+	cat pptex.skw > $@
 
 utf8skw: utf8pptex.skw
 	cat utf8pptex.skw > $@

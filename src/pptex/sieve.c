@@ -1327,7 +1327,7 @@ initialize(void)
 	int i;
 	wchar_t pr_test[PrNN_SIZE+PrNN_SIZE];
 #ifdef __CYGWIN__
-	setlocale(LC_ALL, "C.ISO88591");
+	setlocale(LC_ALL, "en_GB.ISO88591");
 #endif
 	for(i=1; i<256; i++) character_flags[i] = 0;
 
@@ -3982,10 +3982,10 @@ and failing that defaults to utf8.
 
 	if(debug) message("Processing for view %s", view_option);
 
-	setlocale(LC_ALL, main_F.utf8 ?  "en_GB.UTF-8" : "C.ISO88591");
+	setlocale(LC_ALL, main_F.utf8 ?  "en_GB.UTF-8" : "en_GB.ISO88591");
 
 	if(debug) message("Locale set to %s",
-			  (main_F.utf8 ? "en_GB.UTF-8" : "C.ISO88591"));
+			  (main_F.utf8 ? "en_GB.UTF-8" : "en_GB.ISO88591"));
 
 	read_keyword_files(keyword_files);
 

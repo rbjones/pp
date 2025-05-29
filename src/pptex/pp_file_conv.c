@@ -313,12 +313,13 @@ main(int argc, char **argv)
   initialize(argc, argv, option, &ascii_out, &nokw, keyword_files);
   
   if (keyword_F.utf8) {
-    setlocale(LC_ALL, "en_GB.UTF-8");
+    setlocale(LC_ALL, "en_GB.utf8");
     keyword_files[limits.num_keyword_files++] = UKEYWORD_FILE;
   } else {
-    setlocale(LC_ALL, "C.ISO88591");
+    setlocale(LC_ALL, "en_GB.ISO88591");
     keyword_files[limits.num_keyword_files++] = KEYWORD_FILE;
   };
+  if (debug && D_UTF8) {printf ("Locale set to %s\n", (setlocale(LC_ALL, NULL)));};
   
   read_keyword_files(keyword_files);
 
