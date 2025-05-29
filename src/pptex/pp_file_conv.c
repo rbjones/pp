@@ -319,7 +319,7 @@ main(int argc, char **argv)
     setlocale(LC_ALL, "en_GB.ISO88591");
     keyword_files[limits.num_keyword_files++] = KEYWORD_FILE;
   };
-  if (debug && D_UTF8) {printf ("Locale set to %s\n", (setlocale(LC_ALL, NULL)));};
+  if (debug & D_UTF8) {printf ("Locale set to %s\n", (setlocale(LC_ALL, NULL)));};
   
   read_keyword_files(keyword_files);
 

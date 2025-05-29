@@ -192,7 +192,7 @@ pptex: sieve $(PPTEXBINRELEASE) $(PPTEXETCRELEASE)  $(PPTEXTEXRELEASE)
 
 #utf8module.o: ppunicodetab.h unicodepptab.h
 
-$(IMP100SCRIPTS): pp_file_conv sieve sieveview sievekeyword utf8svf utf8skw
+$(IMP100SCRIPTS): pp_file_conv sieve sieveview sievekeyword utf8svf
 	sieve sml <imp100.pp
 
 findfile: findfile.o utf8module.o utf8module.h
