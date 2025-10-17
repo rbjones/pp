@@ -113,7 +113,11 @@ Respect dependency order when making changes across packages. Changes in lower-l
 - Multiple ML compiler support requires compiler-specific build logic
 - Font system integration via `foundry` package for mathematical symbols
 
-## Change History
+## Change History Maintenance
 
 After changing a document which includes a change(s) history, add an entry describing the changes.
 Use the same format as the existing entries.
+
+## See also
+
+[NOTES.md](../NOTES.md) in the root of the repository.

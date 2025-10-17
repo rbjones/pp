@@ -125,6 +125,9 @@ gawk
 xmodmap
 redhat-rpm-config
 
+For installation on ubuntu, specifically on the github workflow runner, different packages are needed,  see the file .github/workflows/ci.yml in the ProofPower repo.
+To regression test on Ubuntu that workflow can be manually activated.
+
 ### Clone the ProofPower git repo git@github.com:RobArthan/pp.
 
 Now you can go back to the top of this document and follow the instructions there.
