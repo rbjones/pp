@@ -1,0 +1,103 @@
+name: Build ProofPower Container
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Container tag (default: latest)'
+        required: false
+        default: 'latest'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/proofpower
+
+jobs:
+  build-container:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=raw,value=${{ github.event.inputs.tag || 'latest' }}
+            type=sha,prefix={{branch}}-
+            
+      - name: Create Dockerfile
+        run: |
+          cat > Dockerfile << 'EOF'
+          FROM ubuntu:latest
+          
+          # Avoid interactive prompts during package installation
+          ENV DEBIAN_FRONTEND=noninteractive
+          
+          # Install ProofPower dependencies (exact same as ci.yml)
+          RUN apt-get update && apt-get install -y \
+              polyml \
+              texlive \
+              texlive-epsf \
+              motif \
+              motif-devel \
+              groff \
+              mkfontdir \
+              xfig \
+              git \
+              gawk \
+              xmodmap \
+              redhat-rpm-config \
+              && rm -rf /var/lib/apt/lists/*
+          
+          # Set up locales (same as ci.yml)
+          RUN locale-gen en_GB.UTF-8 && \
+              locale-gen en_US.UTF-8 && \
+              update-locale
+          
+          # Copy ProofPower source
+          COPY . /proofpower-source
+          WORKDIR /proofpower-source
+          
+          # Set environment variables (same as ci.yml)
+          ENV PPDIR=/proofpower-source
+          ENV PATH="/proofpower-source/bld/bin:$PATH"
+          
+          # Build ProofPower (exact same commands as ci.yml)
+          RUN export PPDIR=`pwd` && cd src/pptex && make -f pptex.mkf bininst && cd ../dev && make -f dev.mkf bininst && cd ../hol && make -f hol.mkf bininst
+                   
+          # Set up working directory for users
+          WORKDIR /workspace
+          
+          # Default command
+          CMD ["/bin/bash"]
+          EOF
+          
+      - name: Build and push container image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: Output image details
+        run: |
+          echo "Container image built and pushed:"
+          echo "${{ steps.meta.outputs.tags }}"
+          echo ""
+          echo "To use this image in other workflows:"
+          echo "container: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag || 'latest' }}"
