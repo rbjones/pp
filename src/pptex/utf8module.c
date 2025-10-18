@@ -2597,7 +2597,7 @@ char *my_setlocale(int cat, bool utf8_flag)
 			return NULL; /* not reached */
 		}
 	}
-	else.  /* EXTLOCALE */
+	else  /* EXTLOCALE */
 	{
 		/* Try EXT locales in order */
 		locres = setlocale(cat, EXTLOCNAME1);
