@@ -79,7 +79,7 @@ jobs:
           
           # Build ProofPower (exact same commands as ci.yml)
           RUN export PPDIR=`pwd` && \
-          . ./dev_env \
+          . ./dev_env && \
           cd src/pptex && make -f pptex.mkf bininst && \
           cd ../dev && make -f dev.mkf bininst && \
           cd ../hol && make -f hol.mkf bininst
