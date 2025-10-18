@@ -145,3 +145,4 @@ src/zed/wrk051_zed.flag
 src/zed/zed_course_solutions.doc
 src/zed/zed_course_work.doc
 # That's it.
+*.o

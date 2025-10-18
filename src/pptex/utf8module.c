@@ -2597,7 +2597,7 @@
 /* filler line 2590 */
 #ifdef EXTLOCALE
     /* some code */
-else.  /* EXTLOCALE */
+else  /* EXTLOCALE */
     /* other code */
 #endif
 
