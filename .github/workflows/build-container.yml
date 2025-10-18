@@ -77,7 +77,10 @@ jobs:
           ENV PATH="/proofpower-source/bld/bin:$PATH"
           
           # Build ProofPower (exact same commands as ci.yml)
-          RUN export PPDIR=`pwd` && cd src/pptex && make -f pptex.mkf bininst && cd ../dev && make -f dev.mkf bininst && cd ../hol && make -f hol.mkf bininst
+          RUN export PPDIR=`pwd` && \
+          cd src/pptex && make -f pptex.mkf bininst && \
+          cd ../dev && make -f dev.mkf bininst && \
+          cd ../hol && make -f hol.mkf bininst
                    
           # Set up working directory for users
           WORKDIR /workspace
