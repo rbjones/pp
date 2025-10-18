@@ -81,7 +81,7 @@ jobs:
           RUN export PPDIR=`pwd` && \
           . ./dev_env && \
           cd src/pptex && make -f pptex.mkf bininst && \
-          cd ../dev && make -f dev.mkf bininst && \
+          cd ../dev && make -f dev.mkf inst && \
           cd ../hol && make -f hol.mkf bininst
                    
           # Set up working directory for users
