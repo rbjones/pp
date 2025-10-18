@@ -51,6 +51,7 @@ jobs:
           RUN apt-get update && apt-get install -y \
           build-essential \
           polyml \
+          libpolyml-dev \
           texlive \
           texlive-latex-extra \
           texlive-fonts-recommended \
