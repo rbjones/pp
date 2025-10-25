@@ -78,18 +78,20 @@ jobs:
           ENV PPDIR=/proofpower-source
           ENV PATH="/proofpower-source/bld/bin:$PATH"
           
-          # Build ProofPower (exact same commands as ci.yml)
+          # Build ProofPower
           RUN export PPDIR=`pwd` && \
           . ./dev_env && \
           cd src/pptex && make -f pptex.mkf bininst && \
           cd ../dev && make -f dev.mkf inst && \
-          cd ../hol && make -f hol.mkf bininst
-                   
+          cd ../hol && make -f hol.mkf bininst && \
+          cd ../zed && make -f zed.mkf bininst && \
+          cd ../daz && make -f daz.mkf bininst &&
+
           # Set up working directory for users
           WORKDIR /workspace
           
           # Default command
-          CMD ["/bin/bash"]
+          CMD ["/bin/zsh"]
           EOF
           
       - name: Build and push container image
