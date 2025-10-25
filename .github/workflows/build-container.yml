@@ -85,7 +85,7 @@ jobs:
           cd ../dev && make -f dev.mkf inst && \
           cd ../hol && make -f hol.mkf bininst && \
           cd ../zed && make -f zed.mkf bininst && \
-          cd ../daz && make -f daz.mkf bininst &&
+          cd ../daz && make -f daz.mkf bininst
 
           # Set up working directory for users
           WORKDIR /workspace
