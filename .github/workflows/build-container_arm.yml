@@ -45,7 +45,9 @@ jobs:
       - name: Create Dockerfile
         run: |
           cat > Dockerfile << 'EOF'
-          FROM ubuntu:latest
+          # ubuntu:latest is 26.04, whose gcc defaults to C23. utf8module.h
+          # still contains "typedef char bool", which that compiler rejects.
+          FROM ubuntu:24.04
 
           # Avoid interactive prompts during package installation
           ENV DEBIAN_FRONTEND=noninteractive
